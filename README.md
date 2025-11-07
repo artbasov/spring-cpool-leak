@@ -7,6 +7,7 @@ A simple reproducer of the r2dbc-pool connection leak.
    1. Accepts `delay` to imitate latency of PG query processing (done via [pg_sleep](https://www.postgresql.org/docs/current/functions-datetime.html#FUNCTIONS-DATETIME-DELAY))
    2. Handles exceptions from repository call (that have that pg_sleep delay) by creating new transaction via `TransactionalOperator` with `PROPAGATION_REQUIRES_NEW` and `ISOLATION_READ_COMMITTED`
 and inserts another entity (`AuditLogEntry` in the example)
+3. Start DB with `docker-compose up -d`
 
 # Steps to reproduce
 1. Do 10 (`spring.r2dbc.pool.max-size`) times:
